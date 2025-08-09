@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${path.basename(filePath, '.md')}</title>
+  <link rel="stylesheet" href="https://s1.hdslb.com/bfs/static/jinkela/long/font/regular.css">
+  <style>
+    body {
+      font-family: 'Bilibili-Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px 40px;
+    }
+    pre {
+      position: relative;
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border: 1px solid #e9ecef;
+      font-family: 'Cascadia Code', 'Consolas Monaco', 'Andale Mono', 'Ubuntu Mono', monospace;
+    }
+    pre code {
+      background-color: transparent;
+      padding: 0;
+    }
+    code {
+      font-family: 'Cascadia Code', 'Consolas Monaco', 'Andale Mono', 'Ubuntu Mono', monospace;
+      background-color: #f8f9fa;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #e9ecef;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    table, th, td {
+      border: 1px solid #e9ecef;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f8f9fa;
+      font-weight: 600;
+    }
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+      color: #0056b3;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 24px;
+      margin-bottom: 16px;
+      font-weight: 600;
+      line-height: 1.25;
+      font-family: 'Bilibili-Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    h1 {
+      font-size: 2.5em;
+      border-bottom: 1px solid #e9ecef;
+      padding-bottom: 0.3em;
+    }
+    h2 {
+      font-size: 2em;
+      border-bottom: 1px solid #e9ecef;
+      padding-bottom: 0.3em;
+    }
+    blockquote {
+      margin: 0;
+      padding: 10px 20px;
+      color: #6c757d;
+      border-left: 4px solid #e9ecef;
+      background-color: #f8f9fa;
+    }
+    footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #e9ecef;
+      text-align: center;
+      font-size: 0.9em;
+      color: #6c757d;
+    }
+    @media (max-width: 768px) {
+      body {
+        padding: 20px;
+      }
+      h1 {
+        font-size: 2em;
+      }
+      h2 {
+        font-size: 1.5em;
+      }
+    }
+    /* 复制按钮样式 */
+    .copy-btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background-color: #f0f0f0;
+      border: none;
+      padding: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      border-radius: 3px;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .copy-btn:hover {
+      background-color: #e0e0e0;
+    }
+    .copy-btn::after {
+      content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 25 25" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>');
+      width: 16px;
+      height: 16px;
+    }
+    .copy-btn.copied::after {
+      content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="2 2 25 25"><g fill="none"><path d="M13.75 2a2.25 2.25 0 0 1 2.236 2.002V4L17.75 4A2.25 2.25 0 0 1 20 6.25v5.248a6.452 6.452 0 0 0-1.5-.422V6.25a.75.75 0 0 0-.75-.75h-2.129c-.404.603-1.091 1-1.871 1h-3.5c-.78 0-1.467-.397-1.871-1H6.25a.75.75 0 0 0-.75.75v13.5c0 .414.336.75.75.75h5.482A6.518 6.518 0 0 0 12.81 22H6.25A2.25 2.25 0 0 1 4 19.75V6.25A2.25 2.25 0 0 1 6.25 4h1.764a2.25 2.25 0 0 1 2.236-2h3.5zm2.245 2.096L16 4.25c0-.052-.002-.103-.005-.154zM13.75 3.5h-3.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5zm9.25 14a5.5 5.5 0 1 1-11 0a5.5 5.5 0 0 1 11 0zm-2.146-2.354a.5.5 0 0 0-.708 0L16.5 18.793l-1.646-1.647a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708z" fill="currentColor"></path></g></svg>');
+      width: 16px;
+      height: 16px;
+    }
+  </style>
+</head>
+<body>
+  ${htmlContent}
+  <footer>
+    <b>Markdown to HTML5</b> by <a href="https://imbee.top">MIFENG</a>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const codeBlocks = document.querySelectorAll('pre');
+
+      codeBlocks.forEach(function(codeBlock) {
+        const copyBtn = document.createElement('button');
+        copyBtn.classList.add('copy-btn');
+        codeBlock.appendChild(copyBtn);
+        const code = codeBlock.querySelector('code').innerText;
+
+        copyBtn.addEventListener('click', function() {
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(code).then(function() {
+              copyBtn.classList.add('copied');
+              setTimeout(() => copyBtn.classList.remove('copied'), 2000);
+            }).catch(function(err) {
+              console.error('复制失败: ', err);
+            });
+          } else {
+            const textArea = document.createElement('textarea');
+            textArea.value = code;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+              document.execCommand('copy');
+              copyBtn.classList.add('copied');
+              setTimeout(() => copyBtn.classList.remove('copied'), 2000);
+            } catch (err) {
+              console.error('复制失败: ', err);
+            }
+            document.body.removeChild(textArea);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

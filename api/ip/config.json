@@ -1,0 +1,88 @@
+{
+  "default_timeout": 5000,
+  "retry_count": 3,
+  "cache_ttl": 3600,
+  "load_balance_strategy": "least_used",
+  "ip_headers": [
+    {"name": "X-Forwarded-For", "priority": 1},
+    {"name": "x-real-ip", "priority": 2},
+    {"name": "x-client-ip", "priority": 3},
+    {"name": "cf-connecting-ip", "priority": 4},
+    {"name": "x-forwarded", "priority": 5},
+    {"name": "forwarded-for", "priority": 6},
+    {"name": "forwarded", "priority": 7}
+  ],
+  "response_fields": [
+    "ip",
+    "city",
+    "country",
+    "isp"
+  ],
+  "upstream_apis": [
+    {
+      "name": "ip9",
+      "url": "https://ip9.com.cn/get?ip={ip}",
+      "max_requests": 40,
+      "time_window": 60,
+      "enabled": true,
+      "field_mapping": {
+        "ip": "data.ip",
+        "city": "data.prov,data.city,data.area",
+        "country": "data.country",
+        "isp": "data.isp"
+      }
+    },
+    {
+      "name": "vvhan",
+      "url": "https://api.vvhan.com/api/ipInfo?ip={ip}",
+      "max_requests": 120,
+      "time_window": 60,
+      "enabled": false,
+      "field_mapping": {
+        "ip": "ip",
+        "city": "info.prov,info.city",
+        "country": "info.country",
+        "isp": "info.isp"
+      }
+    },
+    {
+      "name": "netart",
+      "url": "https://ipvx.netart.cn/?ip={ip}",
+      "max_requests": 120,
+      "time_window": 60,
+      "enabled": true,
+      "field_mapping": {
+        "ip": "ip",
+        "city": "regions_short",
+        "country": "country.name",
+        "isp": "as.info"
+      }
+    },
+    {
+      "name": "songzixian",
+      "url": "https://api.songzixian.com/api/ip?dataSource=GLOBAL_IP&ip={ip}",
+      "max_requests": 120,
+      "time_window": 60,
+      "enabled": false,
+      "field_mapping": {
+        "ip": "data.ip",
+        "city": "data.province,data.city",
+        "country": "data.country",
+        "isp": "data.isp"
+      }
+    },
+    {
+      "name": "52vmy",
+      "url": "https://api.52vmy.cn/api/query/itad/pro?ip={ip}",
+      "max_requests": 50,
+      "time_window": 60,
+      "enabled": true,
+      "field_mapping": {
+        "ip": "ip",
+        "city": "data.province,data.city",
+        "country": "data.country",
+        "isp": "data.isp"
+      }
+    }
+  ]
+}

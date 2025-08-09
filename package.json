@@ -1,0 +1,24 @@
+{
+  "name": "My API",
+  "author": "Mifeng",
+  "Github": "https://github.com/FrecklyComb1728/MifengAPI",
+  "license": "MIT",
+  "version": "1.0.0",
+  "description": "Node.js API服务",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "keywords": [
+    "api",
+    "proxy",
+    "middleware"
+  ],
+  "dependencies": {
+    "axios": "^1.6.2",
+    "express": "^4.18.2",
+    "lodash": "^4.17.21",
+    "marked": "^16.0.0"
+  }
+}
